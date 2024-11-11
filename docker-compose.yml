@@ -1,0 +1,29 @@
+services:
+  app:
+    build: 
+      context: .
+    container_name: news
+    command: ['/app/docker/app.sh']
+    ports:
+      - 9000:8000
+    depends_on:
+      - db
+    networks:
+      - net
+  
+  db:
+    image: clickhouse/clickhouse-server
+    container_name: clickhouse
+    volumes:
+      - clickhouse_data:/var/lib/clickhouse
+    ports:
+      - 8123:8123
+    networks:
+      - net
+
+
+volumes:
+  clickhouse_data:
+
+networks:
+  net:
