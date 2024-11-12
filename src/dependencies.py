@@ -13,7 +13,7 @@ error_found = HTTPException(
 
 
 def valid_news_id(
-    news_id: Annotated[uuid4, Path], service: Annotated[NewsService, Depends()]
+    news_id: Annotated[str, Path], service: Annotated[NewsService, Depends()]
 ) -> NewsRead | None:
     news = service.get_news_by_id(news_id)
 

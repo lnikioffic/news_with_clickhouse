@@ -8,8 +8,9 @@ RUN pip install --upgrade pip
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
+COPY . /app/
 
-RUN chmod a+x /app/docker/app.sh
+RUN chmod a+x /app/docker/*.sh
 
-ENTRYPOINT ["sh", "app.sh"]
+
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]

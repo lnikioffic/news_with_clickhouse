@@ -3,7 +3,7 @@ services:
     build: 
       context: .
     container_name: news
-    command: ['/app/docker/app.sh']
+    #command: ['/app/docker/app.sh']
     ports:
       - 9000:8000
     depends_on:
