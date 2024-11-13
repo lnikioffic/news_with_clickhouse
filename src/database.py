@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker
 
 class DataBase:
     def __init__(self):
-        self.conn_str = 'clickhouse://default:@db:8123/default'
+        self.conn_str = 'clickhouse://default:@localhost:8123/default'
         self.engine = create_engine(self.conn_str)
         self.session = sessionmaker(bind=self.engine)
 

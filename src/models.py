@@ -1,4 +1,4 @@
-from sqlalchemy import String, func, Uuid
+from sqlalchemy import UniqueConstraint, func, ForeignKey
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from clickhouse_sqlalchemy import engines
 from src.database import DATABASE
@@ -11,7 +11,7 @@ class Base(DeclarativeBase):
 
 
 class News(Base):
-    __tablename__ = 'newses'
+    __tablename__ = 'news'
     __table_args__ = (
         engines.MergeTree(order_by=['uuid']),
         {'schema': DATABASE},
@@ -24,3 +24,23 @@ class News(Base):
     updated_at: Mapped[datetime] = mapped_column(
         server_default=func.now(), onupdate=func.now()
     )
+
+
+class Tags(Base):
+    __tablename__ = 'tags'
+    __table_args__ = (
+        engines.MergeTree(order_by=['uuid']),
+        {'schema': DATABASE},
+    )
+    uuid: Mapped[str] = mapped_column(primary_key=True)
+    name: Mapped[str]
+
+
+class News_Tags(Base):
+    __tablename__ = 'news_tags'
+    __table_args__ = (
+        engines.MergeTree(order_by=['news_uuid']),
+        {'schema': DATABASE},
+    )
+    news_uuid: Mapped[str] = mapped_column(ForeignKey('news.uuid'), primary_key=True)
+    tags_uuid: Mapped[str] = mapped_column( ForeignKey('tags.uuid'), primary_key=True)
