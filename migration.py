@@ -17,4 +17,7 @@ try:
 except:
     print('уже создано')
 
-News_Tags().__table__.create(db.engine)
+try:
+    News_Tags().__table__.create(db.engine)
+except:
+    print('уже создано')

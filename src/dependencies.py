@@ -1,7 +1,5 @@
 from typing import Annotated
 from fastapi import Depends, HTTPException, Path, status
-from uuid import uuid4
-
 from src.schemas import NewsRead
 from src.service import NewsService
 
